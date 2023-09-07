@@ -14,26 +14,30 @@ const props = withDefaults(
     isOutlined: false
   }
 )
-const divStyle = computed(() => ({
+const buttonStyle = computed(() => ({
   width: props.width,
   height: props.height,
   border: props.isOutlined ? '1px solid black' : 'none',
-  backgroundColor: props.isOutlined ? 'var(--color-primary)' : 'var(--color-secondary)',
-  borderRadius: 'var(--size-small)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
+  backgroundColor: props.isOutlined ? 'var(--color-primary)' : 'var(--color-secondary)'
 }))
 
 const textColor = computed(() => {
-  return props.isOutlined ? 'var(--color-text)' : 'var(--color-text-light)'
+  return props.isOutlined ? 'dark' : 'light'
 })
 </script>
 
 <template>
-  <div :style="divStyle">
+  <div class="button-container" :style="buttonStyle">
     <StyledText :color="textColor" type="medium"><slot /></StyledText>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.button-container {
+  cursor: pointer;
+  border-radius: var(--size-small);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

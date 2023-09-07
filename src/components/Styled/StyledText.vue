@@ -3,26 +3,37 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   fontWeight?: string
-  type: 'large' | 'medium' | 'small'
-  color?: string
+  type: StyledText
+  color?: StyledTextColor
 }>()
 
 const fontSize = computed(() => {
   switch (props.type) {
     case 'small':
-      return '0.5rem'
-    case 'medium':
       return '1rem'
-    case 'large':
+    case 'medium':
       return '1.5rem'
+    case 'large':
+      return '2rem'
     default:
       return '1rem'
+  }
+})
+
+const textColor = computed(() => {
+  switch (props.color) {
+    case 'dark':
+      return 'var(--color-text)'
+    case 'light':
+      return 'var(--color-text-light)'
+    default:
+      return 'var(--color-text)'
   }
 })
 </script>
 
 <template>
-  <div class="text" :style="{ fontSize: fontSize, color: props.color }">
+  <div class="text" :style="{ fontSize: fontSize, color: textColor }">
     <slot />
   </div>
 </template>
@@ -30,6 +41,5 @@ const fontSize = computed(() => {
 <style scoped>
 .text {
   font-size: large;
-  color: var(--color-text);
 }
 </style>
