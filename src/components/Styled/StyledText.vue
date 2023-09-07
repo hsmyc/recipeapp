@@ -5,6 +5,7 @@ const props = defineProps<{
   fontWeight?: string
   type: StyledText
   color?: StyledTextColor
+  textAlign?: 'left' | 'center' | 'right'
 }>()
 
 const fontSize = computed(() => {
@@ -30,16 +31,39 @@ const textColor = computed(() => {
       return 'var(--color-text)'
   }
 })
+
+const alignItem = computed(() => {
+  switch (props.textAlign) {
+    case 'left':
+      return 'flex-start'
+    case 'center':
+      return 'center'
+    case 'right':
+      return 'flex-end'
+    default:
+      return 'flex-start'
+  }
+})
 </script>
 
 <template>
-  <div class="text" :style="{ fontSize: fontSize, color: textColor }">
+  <div
+    class="text"
+    :style="{
+      fontSize: fontSize,
+      color: textColor,
+      alignItems: alignItem,
+      fontWeight: props.fontWeight
+    }"
+  >
     <slot />
   </div>
 </template>
 
 <style scoped>
 .text {
+  display: flex;
+  flex-direction: column;
   font-size: large;
 }
 </style>

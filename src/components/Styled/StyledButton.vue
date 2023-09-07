@@ -2,42 +2,54 @@
 import { computed } from 'vue'
 import StyledText from './StyledText.vue'
 
-const props = withDefaults(
-  defineProps<{
-    width?: string
-    height?: string
-    isOutlined: boolean
-  }>(),
-  {
-    width: '96px',
-    height: '48px',
-    isOutlined: false
-  }
-)
+type BaseProps = {
+  width?: string
+  height?: string
+  type?: 'outlined' | 'filled' | 'text'
+  textType?: StyledText
+  textColor?: StyledTextColor
+  iconUrl?: string | undefined
+}
+
+const props = withDefaults(defineProps<BaseProps>(), {
+  width: '96px',
+  height: '48px',
+  type: 'filled',
+  textType: 'medium'
+})
 const buttonStyle = computed(() => ({
   width: props.width,
   height: props.height,
-  border: props.isOutlined ? '1px solid black' : 'none',
-  backgroundColor: props.isOutlined ? 'var(--color-primary)' : 'var(--color-secondary)'
+  border: props.type === 'outlined' ? '1px solid black' : props.type === 'filled' ? 'none' : 'none',
+  backgroundColor:
+    props.type === 'outlined'
+      ? 'var(--color-primary)'
+      : props.type === 'filled'
+      ? 'var(--color-secondary)'
+      : 'transparent',
+  justifyContent: props.iconUrl !== 'undefined' ? 'space-between' : 'center'
 }))
 
 const textColor = computed(() => {
-  return props.isOutlined ? 'dark' : 'light'
+  if (props.textColor) return props.textColor
+  return props.type === 'text' ? 'dark' : 'light'
 })
 </script>
 
 <template>
   <div class="button-container" :style="buttonStyle">
-    <StyledText :color="textColor" type="medium"><slot /></StyledText>
+    <img v-if="props.iconUrl" :src="props.iconUrl" />
+    <StyledText :color="textColor" type="medium"><slot /> </StyledText>
   </div>
 </template>
 
 <style scoped>
 .button-container {
-  cursor: pointer;
-  border-radius: var(--size-small);
   display: flex;
   align-items: center;
-  justify-content: center;
+  min-width: fit-content;
+  padding: var(--size-small);
+  cursor: pointer;
+  border-radius: var(--size-small);
 }
 </style>
