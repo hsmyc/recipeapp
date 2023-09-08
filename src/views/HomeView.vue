@@ -69,6 +69,7 @@ console.log(favoriteRecipes.value)
     <!-- Favorites -->
     <div class="favorites">
       <StyledText type="large"> Your Favorites </StyledText>
+      <StyledText type="small" v-if="favoriteRecipes.length === 0">No favorites yet</StyledText>
       <div class="favorites-body">
         <RecipeCard
           v-for="(recipe, index) in favoriteRecipes"
@@ -102,6 +103,11 @@ console.log(favoriteRecipes.value)
   align-items: center;
   gap: var(--size-small);
 }
+
+.recipe-body {
+  display: flex;
+  gap: var(--size-large);
+}
 .favorites {
   display: flex;
   flex-direction: column;
@@ -113,10 +119,6 @@ console.log(favoriteRecipes.value)
   gap: var(--size-large);
   flex-wrap: wrap;
 }
-.recipe-body {
-  display: flex;
-  gap: var(--size-large);
-}
 @media screen and (max-width: 1000px) {
   .recipe-body {
     flex-direction: column-reverse;
@@ -125,7 +127,8 @@ console.log(favoriteRecipes.value)
 
 @media screen and (max-width: 500px) {
   .favorites {
-    display: none;
+    width: 100%;
+    flex-direction: column;
   }
 }
 </style>
