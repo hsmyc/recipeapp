@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+// Define properties with their types for the text styling component
 const props = defineProps<{
-  fontWeight?: string
-  type: StyledText
-  color?: StyledTextColor
-  textAlign?: 'left' | 'center' | 'right'
+  fontWeight?: string // Optional font weight (e.g., 'bold')
+  type: StyledText // Define the size of the text: 'small', 'medium', or 'large'
+  color?: StyledTextColor // Optional text color: 'dark' or 'light'
+  textAlign?: 'left' | 'center' | 'right' // Optional text alignment
 }>()
 
+// Computed property to determine font size based on the type prop
 const fontSize = computed(() => {
   switch (props.type) {
     case 'small':
@@ -21,6 +23,7 @@ const fontSize = computed(() => {
   }
 })
 
+// Computed property to determine the text color based on the color prop
 const textColor = computed(() => {
   switch (props.color) {
     case 'dark':
@@ -32,6 +35,7 @@ const textColor = computed(() => {
   }
 })
 
+// Computed property to determine alignment for the flex container, matching the textAlign prop
 const alignItem = computed(() => {
   switch (props.textAlign) {
     case 'left':

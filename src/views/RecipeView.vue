@@ -1,13 +1,20 @@
 <script setup lang="ts">
+// Importing required modules and components
 import { useRoute } from 'vue-router'
 import { ref, type Ref } from 'vue'
 import { getRecipeById } from '@/api/functions'
 import { extractRecipeData } from '@/utils/functions'
 import StyledText from '@/components/Styled/StyledText.vue'
 import StyledButton from '@/components/Styled/StyledButton.vue'
+
+// Getting the current route
 const route = useRoute()
+
+// Setting up reactive references
 const recipeData: Ref<Recipe> = ref({} as Recipe)
 const ingredients: Ref<string[][]> = ref([])
+
+// Function to fetch a recipe by its ID and extract its ingredients
 const recipeById = async () => {
   const data = await getRecipeById(route.params.id as string)
   recipeData.value = data.meals[0]
@@ -15,15 +22,23 @@ const recipeById = async () => {
   ingredients.value = matched
   console.log(recipeData.value)
 }
+
+// Call the function immediately
 recipeById()
 </script>
 
 <template>
+  <!-- Recipe container -->
   <div class="recipe">
+    <!-- Recipe title -->
     <StyledText type="large" font-weight="bold" text-align="center">{{
       recipeData.strMeal
     }}</StyledText>
+
+    <!-- Recipe image -->
     <img :src="recipeData.strMealThumb" :alt="recipeData.strMeal" />
+
+    <!-- Recipe info: Category, Area and Source link -->
     <div class="info">
       <div class="info-field">
         <StyledText type="small" font-weight="bold">Category:</StyledText>
@@ -33,18 +48,24 @@ recipeById()
         <StyledText type="small" font-weight="bold">Area:</StyledText>
         <StyledText type="small">{{ recipeData.strArea }}</StyledText>
       </div>
+      <!-- Button leading to the original source of the recipe -->
       <StyledButton type="outlined">
         <a v-if="recipeData.strSource" :href="recipeData.strSource" target="_blank">Source</a>
       </StyledButton>
     </div>
 
+    <!-- Recipe instructions -->
     <StyledText type="small">{{ recipeData.strInstructions }}</StyledText>
+
+    <!-- List of ingredients with their measurements -->
     <ul>
       <li v-for="(ingredient, index) in ingredients" :key="index">
         <StyledText font-weight="bold" type="small">{{ ingredient[0] }}</StyledText>
         <StyledText type="small">{{ ingredient[1] }}</StyledText>
       </li>
     </ul>
+
+    <!-- YouTube video for the recipe, if available -->
     <div v-if="recipeData.strYoutube !== ''" class="video-wrapper">
       <iframe
         width="560"

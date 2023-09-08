@@ -6,8 +6,10 @@ import RecipeCard from '@/components/Recipe/RecipeCard.vue'
 import { ref, type Ref } from 'vue'
 
 const searchResult: Ref<Recipe[] | null | undefined> = ref()
+
 const searchModal: Ref<Boolean> = ref(false)
 
+// Function to handle search requests. When called, it queries the recipeSearch API.
 const handleSearch = async (e: string) => {
   const value = await recipeSearch(e)
   searchResult.value = value.meals
@@ -17,6 +19,7 @@ const handleSearch = async (e: string) => {
 
 <template>
   <div class="recipe-search">
+    <!-- Render the StyledSearch component with the handleSearch function as the onChange event handler -->
     <StyledSearch
       :on-change="handleSearch"
       width="60vw"
@@ -25,7 +28,9 @@ const handleSearch = async (e: string) => {
       :icon-url="searchicon"
     />
 
+    <!-- Modal to display search results -->
     <div v-if="searchModal" class="search-modal">
+      <!-- Loop through search results and display a recipe card for each item -->
       <RecipeCard
         :id="item.idMeal"
         width="100px"
@@ -50,6 +55,7 @@ const handleSearch = async (e: string) => {
   align-items: center;
   gap: var(--size-small);
 }
+
 .search-modal {
   display: flex;
   flex-wrap: wrap;

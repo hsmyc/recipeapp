@@ -1,12 +1,18 @@
 <script setup lang="ts">
+// Import the required utilities, components and functions
 import { ref, type Ref } from 'vue'
 import RecipeCard from '@/components/Recipe/RecipeCard.vue'
 import StyledText from '@/components/Styled/StyledText.vue'
 import { getRandomRecipe } from '@/api/functions'
 import { extractRecipeData } from '@/utils/functions'
 import RecipeSearch from '@/components/Recipe/RecipeSearch.vue'
+
+// Set up a ref to hold the random recipe data
 const randomRecipe: Ref<Recipe | null> = ref(null)
+// Set up a ref to hold the extracted ingredients and measures
 const Matched: Ref<Array<any>> = ref([])
+
+// Fetch and process the random recipe
 const getRecipe = async () => {
   const recipe = await getRandomRecipe()
   randomRecipe.value = recipe
@@ -14,13 +20,14 @@ const getRecipe = async () => {
   Matched.value = matched
 }
 
+// Fetch the recipe when the component is mounted
 getRecipe()
 </script>
-
 <template>
   <div class="recipe">
     <StyledText type="large"> Recipes </StyledText>
     <div class="recipe-body">
+      <!-- Left part displays the RecipeCard component -->
       <div style="flex: 0.5">
         <RecipeCard
           :id="randomRecipe?.idMeal"
@@ -40,6 +47,7 @@ getRecipe()
           </template>
         </RecipeCard>
       </div>
+      <!-- Right part displays the RecipeSearch component -->
       <div style="flex: 0.5">
         <RecipeSearch />
       </div>

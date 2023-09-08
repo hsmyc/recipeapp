@@ -1,6 +1,8 @@
 # recipeapp
 
-This template should help get you started developing with Vue 3 in Vite.
+In developing the recipeapp, my approach was deeply rooted in component-based design and collaborative thinking. Even though I single-handedly laid the foundation for this application, I always had in mind a team-centric environment where other developers might join in and enhance the app further. By ensuring that the components are clean, reusable, and modular, I wanted to set a precedent for maintainable and scalable code. While the essence of the application lies in its fundamental features, I've ensured there's ample scope for growth, innovation, and contributions. This is not just an app, but a canvas for collaborative creativity and continual improvement.
+
+🚀 Getting Started
 
 ## Instructions to Start the Application
 
@@ -17,7 +19,7 @@ npm install
 npm run dev
 ```
 
-## Architectural Decisions
+📂 Architectural Decisions
 
 ### Folder Structure
 
@@ -49,10 +51,13 @@ The project uses the following libraries:
 - Vue Router: the official router for Vue.js.
 - Pinia: a state management library for Vue.js applications.
 - Axios: a promise-based HTTP client for the browser and Node.js.
+- Vitest: A Vite-native unit test framework.
 
 ### Frameworks
 
 The project uses the Vue.js framework.
+
+🛠 Build & Testing
 
 ### Type-Check, Compile and Minify for Production
 

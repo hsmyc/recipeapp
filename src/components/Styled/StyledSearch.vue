@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import searchicon from '@/components/icons/searchicon.svg'
 
+// Define properties with their types for the search input component
 const props = withDefaults(
   defineProps<{
-    width?: string
-    height?: string
-    withIcon?: boolean
-    onChange?: (value: string) => void
+    width?: string // Optional width for the container
+    height?: string // Optional height for the container
+    withIcon?: boolean // Boolean to determine if the search icon should be displayed
+    onChange?: (value: string) => void // Optional callback to trigger on input value change
   }>(),
   {
-    width: '100px',
-    height: '48px',
-    withIcon: true
+    width: '100px', // Default width
+    height: '48px', // Default height
+    withIcon: true // Show icon by default
   }
 )
 
+// Function to handle input change and trigger the optional onChange callback
 const handleChange = (e: Event) => {
   const target = e.target as HTMLInputElement
-  props.onChange && props.onChange(target.value)
+  props.onChange && props.onChange(target.value) // If onChange is provided, call it with new input value
 }
 </script>
 
