@@ -2,7 +2,7 @@
 
 In developing the recipeapp, my approach was deeply rooted in component-based design and collaborative thinking. Even though I single-handedly laid the foundation for this application, I always had in mind a team-centric environment where other developers might join in and enhance the app further. By ensuring that the components are clean, reusable, and modular, I wanted to set a precedent for maintainable and scalable code. While the essence of the application lies in its fundamental features, I've ensured there's ample scope for growth, innovation, and contributions. This is not just an app, but a canvas for collaborative creativity and continual improvement.
 
-Getting Started
+🚀 Getting Started
 
 ## Instructions to Start the Application
 
@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-Architectural Decisions
+📂 Architectural Decisions
 
 ### Folder Structure
 
@@ -53,9 +53,30 @@ The project uses the following libraries:
 - Axios: a promise-based HTTP client for the browser and Node.js.
 - Vitest: A Vite-native unit test framework.
 
-### Frameworks
+### State Management with Pinia
 
-The project uses the Vue.js framework.
+Store: favorites.ts
+
+Pinia is employed for state management, allowing structured storage and manipulation of favorite recipes:
+
+#### State
+
+favorites: Holds the IDs of favorite recipes.
+
+#### Getters
+
+getFavorites: Fetches the list of favorite recipes.
+
+#### Actions
+
+addFavorite: Adds a recipe by its ID to the favorites list.
+removeFavorite: Removes a recipe ID from favorites.
+
+#### Usage
+
+Fetching Favorites: Access the list of favorite recipes via favorites.getFavorites.
+Adding to Favorites: Use the favorites.addFavorite(recipeId) method.
+Removing from Favorites: Use the favorites.removeFavorite(recipeId) method.
 
 🛠 Build & Testing
 
