@@ -1,15 +1,19 @@
 <script setup lang="ts">
 // Importing required modules and components
 import { useRoute } from 'vue-router'
-import { ref, type Ref } from 'vue'
+import { ref, type Ref, computed } from 'vue'
 import { getRecipeById } from '@/api/functions'
 import { extractRecipeData } from '@/utils/functions'
 import StyledText from '@/components/Styled/StyledText.vue'
 import StyledButton from '@/components/Styled/StyledButton.vue'
+import { useFavoritesStore } from '@/stores/favorites'
+import favorite from '@/components/icons/favorite.svg'
+import unfavorite from '@/components/icons/unfavorite.svg'
 
 // Getting the current route
 const route = useRoute()
-
+// Getting the favorites store
+const favorites = useFavoritesStore()
 // Setting up reactive references
 const recipeData: Ref<Recipe> = ref({} as Recipe)
 const ingredients: Ref<string[][]> = ref([])
@@ -20,20 +24,36 @@ const recipeById = async () => {
   recipeData.value = data.meals[0]
   const matched = extractRecipeData(recipeData.value)
   ingredients.value = matched
-  console.log(recipeData.value)
+}
+recipeById()
+
+// Function to add a recipe to favorites
+const addToFavorites = () => {
+  if (favorites.getFavorites.includes(recipeData.value.idMeal)) {
+    favorites.removeFavorite(recipeData.value.idMeal)
+  } else favorites.addFavorite(recipeData.value.idMeal)
 }
 
-// Call the function immediately
-recipeById()
+// Computed property to determine the favorite icon based on whether the recipe is in favorites
+const favoriteicon = computed(() => {
+  if (favorites.getFavorites.includes(recipeData.value.idMeal)) {
+    return favorite
+  } else {
+    return unfavorite
+  }
+})
 </script>
 
 <template>
   <!-- Recipe container -->
   <div class="recipe">
-    <!-- Recipe title -->
-    <StyledText type="large" font-weight="bold" text-align="center">{{
-      recipeData.strMeal
-    }}</StyledText>
+    <div class="recipe-header">
+      <!-- Recipe title -->
+      <StyledText type="large" font-weight="bold" text-align="left">{{
+        recipeData.strMeal
+      }}</StyledText>
+      <StyledButton @click="addToFavorites" :icon-url="favoriteicon" type="icon"></StyledButton>
+    </div>
 
     <!-- Recipe image -->
     <img :src="recipeData.strMealThumb" :alt="recipeData.strMeal" />
@@ -96,7 +116,12 @@ recipeById()
   object-fit: cover;
   margin-bottom: 1rem;
 }
-
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 .info {
   display: flex;
   justify-content: space-around;
@@ -107,7 +132,6 @@ recipeById()
 .info-field {
   width: 100%;
   display: flex;
-  border: 1px solid #e0e0e0;
   padding: var(--size-small);
   gap: var(--size-small);
 }

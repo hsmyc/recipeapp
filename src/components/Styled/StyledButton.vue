@@ -6,16 +6,15 @@ import StyledText from './StyledText.vue'
 type BaseProps = {
   width?: string // Optional width for the button
   height?: string // Optional height for the button
-  type?: 'outlined' | 'filled' | 'text' // The appearance style/type of the button
+  type?: 'outlined' | 'filled' | 'text' | 'icon' // The appearance style/type of the button
   textType?: StyledText // The type of the text content in the button
   textColor?: StyledTextColor // The color of the text content in the button
   iconUrl?: string | undefined // Optional URL for the icon to display in the button
+  iconColor?: string // Optional color for the icon
 }
 
 // Setting default properties for the component
 const props = withDefaults(defineProps<BaseProps>(), {
-  width: '96px',
-  height: '48px',
   type: 'filled',
   textType: 'medium'
 })
@@ -31,7 +30,8 @@ const buttonStyle = computed(() => ({
       : props.type === 'filled'
       ? 'var(--color-secondary)'
       : 'transparent',
-  justifyContent: props.iconUrl !== 'undefined' ? 'space-between' : 'center'
+  justifyContent: props.iconUrl !== 'undefined' ? 'space-between' : 'center',
+  padding: props.type === 'icon' ? '0' : 'var(--size-small)'
 }))
 
 // Computed property to determine the text color based on the provided properties or the button type
@@ -44,7 +44,7 @@ const textColor = computed(() => {
 <template>
   <div class="button-container" :style="buttonStyle">
     <img v-if="props.iconUrl" :src="props.iconUrl" />
-    <StyledText :color="textColor" type="medium"><slot /> </StyledText>
+    <StyledText v-if="props.type !== 'icon'" :color="textColor" type="medium"><slot /> </StyledText>
   </div>
 </template>
 
@@ -53,7 +53,6 @@ const textColor = computed(() => {
   display: flex;
   align-items: center;
   min-width: fit-content;
-  padding: var(--size-small);
   cursor: pointer;
   border-radius: var(--size-small);
 }

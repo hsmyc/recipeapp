@@ -64,13 +64,13 @@ const titleType = computed(() => {
       <div class="card-text">
         <!-- Preparation info -->
         <div class="card-prepare" style="flex: 1">
-          <StyledText type="small" color="light">
+          <StyledText v-if="props.cardType !== 'small'" type="small" color="light">
             <slot name="prepare" />
           </StyledText>
         </div>
         <!-- Ingredients info -->
         <div>
-          <StyledText type="small" color="light">
+          <StyledText v-if="props.cardType !== 'small'" type="small" color="light">
             <slot name="ingredients" />
           </StyledText>
         </div>

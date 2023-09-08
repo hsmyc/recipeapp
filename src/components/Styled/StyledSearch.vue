@@ -7,6 +7,7 @@ const props = withDefaults(
     width?: string // Optional width for the container
     height?: string // Optional height for the container
     withIcon?: boolean // Boolean to determine if the search icon should be displayed
+    inputText: string // Input text value
     onChange?: (value: string) => void // Optional callback to trigger on input value change
   }>(),
   {
@@ -26,7 +27,7 @@ const handleChange = (e: Event) => {
 <template>
   <div class="container" :style="{ width: props.width, height: props.height }">
     <img v-if="props.withIcon" :src="searchicon" />
-    <input class="input" type="text" @input="handleChange" />
+    <input class="input" type="text" @input="handleChange" :placeholder="props.inputText" />
   </div>
 </template>
 

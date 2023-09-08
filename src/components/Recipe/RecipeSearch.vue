@@ -15,6 +15,11 @@ const handleSearch = async (e: string) => {
   searchResult.value = value.meals
   searchModal.value = true
 }
+
+// Function to close the search modal
+const closeSearchModal = () => {
+  searchModal.value = false
+}
 </script>
 
 <template>
@@ -26,6 +31,8 @@ const handleSearch = async (e: string) => {
       height="48px"
       :with-icon="true"
       :icon-url="searchicon"
+      input-text="Search for recipes"
+      @click="closeSearchModal"
     />
 
     <!-- Modal to display search results -->
