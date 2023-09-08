@@ -2,9 +2,9 @@
 
 In developing the recipeapp, my approach was deeply rooted in component-based design and collaborative thinking. Even though I single-handedly laid the foundation for this application, I always had in mind a team-centric environment where other developers might join in and enhance the app further. By ensuring that the components are clean, reusable, and modular, I wanted to set a precedent for maintainable and scalable code. While the essence of the application lies in its fundamental features, I've ensured there's ample scope for growth, innovation, and contributions. This is not just an app, but a canvas for collaborative creativity and continual improvement.
 
-🚀 Getting Started
+## 🚀 Getting Started
 
-## Instructions to Start the Application
+### Instructions to Start the Application
 
 To start the application, follow these steps:
 
@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-📂 Architectural Decisions
+## 📂 Architectural Decisions
 
 ### Folder Structure
 
@@ -78,7 +78,7 @@ Fetching Favorites: Access the list of favorite recipes via favorites.getFavorit
 Adding to Favorites: Use the favorites.addFavorite(recipeId) method.
 Removing from Favorites: Use the favorites.removeFavorite(recipeId) method.
 
-🛠 Build & Testing
+## 🛠 Build & Testing
 
 ### Type-Check, Compile and Minify for Production
 
